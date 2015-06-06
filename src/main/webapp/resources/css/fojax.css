@@ -1,0 +1,51 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.home-circle{
+  -webkit-border-radius: 70px;
+  -moz-border-radius: 70px;
+  background-color:#5bc0de;
+  width:140px;
+  height:140px;
+  margin-left:70px;
+}
+
+.home-icon.glyphicon{
+  text-align:center;
+  line-height:140px;
+  font-size: 70px;
+  color:#FFF
+}
+
+
+.icon-link:hover{
+  cursor: pointer;
+}
+
+.small-padding-left{
+  padding-left:15px;
+}
+
+.fojax-accept-button{
+  color:#5cb85c;
+}
+
+.fojax-remove-button{
+  color:#d9534f;
+}
+
+.navbar-form .navbar-success-button{
+  margin-right:5px;
+}
+
+.pad-20-vert{
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+.pad-50-bottom{
+  padding-bottom:50px;
+}

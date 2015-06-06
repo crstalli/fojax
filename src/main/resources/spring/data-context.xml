@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+    	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		    <!-- Factory bean that creates the Mongo instance -->
+<!-- <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+        <property name="host" value="localhost" />
+    </bean> -->    
+
+     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+     	<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+
+     	  <property name="ignoreResourceNotFound" value="true" />
+  		<property name="locations">
+		      <!-- Default location inside war file -->
+		      <value>classpath*:/spring/properties/*-properties.properties</value>
+	  </property>
+	  
+	 </bean>
+     
+     
+    <bean id="mongoEnv" class="src.main.java.startupconfig.DatabaseConfig">
+        <constructor-arg name="userName" value="${OPENSHIFT_MONGODB_DB_USERNAME}"></constructor-arg>
+        <constructor-arg name="password" value="${OPENSHIFT_MONGODB_DB_PASSWORD}"></constructor-arg>
+        <constructor-arg name="host" value="${OPENSHIFT_MONGODB_DB_HOST}"></constructor-arg>
+        <constructor-arg name="port" value="${OPENSHIFT_MONGODB_DB_PORT}"></constructor-arg> 
+    </bean>
+    
+    
+<!-- <mongo:mongo id="mongo" /> -->    
+    
+    <!-- MongoTemplate for connecting and quering the documents in the database -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate" depends-on="mongo">
+      <!-- <constructor-arg name="mongo" ref="mongo" />
+        <constructor-arg name="databaseName" value="fojax" />
+        <constructor-arg name="userCredentials" value="userCredentials" /> -->
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"></constructor-arg> 
+    </bean>
+    
+     <!-- Default bean name is 'mongo' -->
+  <mongo:mongo host="#{mongoEnv.host}" port="#{T(java.lang.Integer).parseInt(mongoEnv.port)}"/>
+  
+  <mongo:db-factory id="mongoDbFactory" dbname="fojax" username="#{mongoEnv.userName}" password="#{mongoEnv.password}" mongo-ref="mongo" />
+
+
+ <!-- <mongo:db-factory dbname="fojax" mongo-ref="mongo"/> --> 
+  <mongo:repositories base-package="src.main.java.repository**"></mongo:repositories>
+   
+
+  <bean class="org.springframework.data.mongodb.core.mapping.event.LoggingEventListener"/>
+    
+</beans>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    
+    <bean id="mongoEnv" class="src.main.java.startupconfig.DatabaseConfig">
+        <constructor-arg name="userName" value="${OPENSHIFT_MONGODB_DB_USERNAME}"></constructor-arg>
+        <constructor-arg name="password" value="${OPENSHIFT_MONGODB_DB_PASSWORD}"></constructor-arg>
+        <constructor-arg name="host" value="${OPENSHIFT_MONGODB_DB_HOST}"></constructor-arg>
+        <constructor-arg name="port" value="${OPENSHIFT_MONGODB_DB_PORT}"></constructor-arg> 
+    </bean>
+    
+	
+
+    
+</beans>

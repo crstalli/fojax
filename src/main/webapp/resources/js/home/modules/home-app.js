@@ -1,0 +1,1 @@
+var HomeApp = angular.module('HomeApp', []);
