@@ -20,18 +20,18 @@
     <put-attribute name="footer-script" value="/WEB-INF/tiles/layout/footer-script.jsp" />
     </definition>
 
-<!--
-     <definition name="page" extends="index" template="/WEB-INF/template/page.jsp">
-     <put-attribute name="scripts" value="/WEB-INF/tiles/script/setup/setup_script.jsp" cascade="true" />
-     <put-attribute name="menu" value="/WEB-INF/tiles/layout/setup/setup_menu.jsp" />
+
+     <definition name="config" extends="index" template="/WEB-INF/template/app.jsp">
+     <put-attribute name="app" value="config" type="String" />
+     <put-attribute name="scripts" value="/WEB-INF/tiles/script/config/config_script.jsp" cascade="true" />
      <put-attribute name="body">
-        <definition template="/WEB-INF/tiles/layout/setup/body.jsp">
+        <definition template="/WEB-INF/tiles/layout/config/body.jsp">
           <put-attribute name="footer-content" value="/WEB-INF/tiles/layout/footer-content.jsp"/>
         </definition>
     </put-attribute>
     <put-attribute name="final-footer-script" value="/WEB-INF/tiles/layout/final-footer-script.jsp"/>
     </definition>
 
- -->
+ 
 
 </tiles-definitions>

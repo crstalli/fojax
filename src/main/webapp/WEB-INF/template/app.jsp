@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/tiles/taglibs.jsp"  %>
-<html>
+<html ng-app=<tiles:getAsString name="app"></tiles:getAsString>>
 
 	<head>
 
@@ -11,7 +11,7 @@
 
   </head>
 
-  <body>
+  <body data-controller="index">
 	<tiles:insertAttribute name="menu"/>
 	<tiles:insertAttribute name="body"/>
    
