@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ApiController {
 
-    @RequestMapping(value = "/api*", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/*", method = RequestMethod.GET)
     public @ResponseBody String api(HttpServletRequest request) {
         return "Success";
     }
