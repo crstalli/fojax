@@ -2,7 +2,9 @@
   
   <body>
   
-   
+    <div ng-controller="ResourceListCtrl">
+    
+    </div>
   	<tiles:insertAttribute name="footer-content"/>
 
 </body>	

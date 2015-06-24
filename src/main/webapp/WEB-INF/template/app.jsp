@@ -16,7 +16,7 @@
 	<tiles:insertAttribute name="body"/>
    
 
-
  	<tiles:insertAttribute name="footer-script"/>
+	<tiles:insertAttribute name="scripts"/>
   </body>
 </html>
