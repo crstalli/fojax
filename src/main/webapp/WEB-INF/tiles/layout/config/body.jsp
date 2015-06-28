@@ -6,5 +6,4 @@
     
     </div>
   	<tiles:insertAttribute name="footer-content"/>
-
 </body>	
