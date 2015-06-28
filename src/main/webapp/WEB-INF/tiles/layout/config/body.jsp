@@ -7,4 +7,3 @@
     </div>
   	<tiles:insertAttribute name="footer-content"/>
 </body>	
-<footer>Super awesome footer</footer>
