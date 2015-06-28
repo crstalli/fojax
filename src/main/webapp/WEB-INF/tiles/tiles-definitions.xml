@@ -22,7 +22,7 @@
 
 
      <definition name="config" extends="index" template="/WEB-INF/template/app.jsp">
-     <put-attribute name="app" value="config" type="String" />
+     <put-attribute name="app" value="configApp" type="String" />
      <put-attribute name="scripts" value="/WEB-INF/tiles/script/config/config_script.jsp" cascade="true" />
      <put-attribute name="body">
         <definition template="/WEB-INF/tiles/layout/config/body.jsp">

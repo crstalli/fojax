@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ConfigController {
 
-    @RequestMapping(value = "/config/*", method = RequestMethod.GET)
+    @RequestMapping(value = "/config/**", method = RequestMethod.GET)
     public String api(HttpServletRequest request) {
         return "config";
     }
