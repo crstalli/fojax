@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/tiles/taglibs.jsp"  %>
       <footer>
-        <p>&copy; Fojax 2014</p>
+        <p>&copy; Fojax 2015</p>
       </footer>
       
       
