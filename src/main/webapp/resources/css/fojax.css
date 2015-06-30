@@ -41,6 +41,10 @@ body {
   margin-right:5px;
 }
 
+.margin-10-top {
+    margin-top: 10px;
+}
+
 .pad-20-vert{
   padding-top:20px;
   padding-bottom:20px;
