@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <form class="form-inline">
-                        <div class="row margin-10-top" ng-if="attributes.length>0" ng-repeat="attribute in attributes">
+                        <div class="row margin-10-top" ng-repeat="attribute in attributes">
                             <div class="col-xs-5">
                                 <div class="form-group">
                                     <label>Attribute</label> 
