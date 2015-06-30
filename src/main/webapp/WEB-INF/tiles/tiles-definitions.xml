@@ -32,6 +32,6 @@
     <put-attribute name="final-footer-script" value="/WEB-INF/tiles/layout/final-footer-script.jsp"/>
     </definition>
 
- 
+
 
 </tiles-definitions>
