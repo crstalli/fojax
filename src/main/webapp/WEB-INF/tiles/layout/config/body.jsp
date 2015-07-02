@@ -12,13 +12,20 @@
                             <div class="col-xs-5">
                                 <div class="form-group">
                                     <label>Attribute</label> 
-                                    <input class="form-control" type="text" ng-model="attribute.name" ng-disabled="true"/>
+                                    <input class="form-control" type="text" name="attribute" ng-model="attribute.name" ng-disabled="true" required>
+                                    <!-- Want it to work when field is clicked $dirty, but input is $invalid  -->
+                                    <span style="color:red" ng-show="$index.attribute.$dirty && $index.attribute.$invalid">
+							 	 	<span ng-show="$index.attribute.$error.required">Attribute is required.</span>
+  									</span>
                                 </div>
                             </div>
                             <div class="col-xs-5">
                                 <div class="form-group">
                                     <label>Type</label> 
-                                    <input class="form-control" type="text" ng-model="attribute.type" ng-disabled="true" />
+                                    <input class="form-control" type="text" name="type" ng-model="attribute.type" ng-disabled="true" required/>
+                                    <span style="color:red" ng-show="$index.type.$dirty && $index.type.$invalid">
+							 	 	<span ng-show="$index.type.$error.required">Type is required.</span>
+  									</span>
                                 </div>
                             </div>
                             <div class="col-xs-2 clearfix">
