@@ -1,2 +1,3 @@
-fojax.common={};
-fojax.common.utils = {};
+fojax.constants = {};
+fojax.utils = {};
+fojax.utils.common = {};

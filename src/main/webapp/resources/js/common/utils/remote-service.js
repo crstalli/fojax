@@ -1,4 +1,4 @@
-fojax.common.utils.remoteService = {
+fojax.utils.common.remoteService = {
 
     call : function(uri, type, data, acceptCallback, failCallback) {
         var result = $.ajax({
@@ -39,10 +39,9 @@ fojax.common.utils.remoteService = {
  * buildUrl : function(uri, pathId, pathValue){ if(pathId){ if(pathId in
  * fojax.properties.serverSent.common && !pathValue){ uri = uri.replace("<%"+pathId+"%>",fojax.viewModels.instances.userViewModel[pathId]); }
  * else { uri = uri.replace("<%"+pathId+"%>",pathValue); } } return
- * fojax.viewModels.instances.userViewModel.rootUri + uri;
- *  }
+ * fojax.viewModels.instances.userViewModel.rootUri + uri; }
  */
 };
 $
-        .extend(fojax.common.utils.remoteService,
+        .extend(fojax.utils.common.remoteService,
                 new fojax.viewModels.BaseViewModel());
