@@ -1,3 +1,1 @@
-The OpenShift `jbossews` cartridge documentation can be found at:
-
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-jbossews/README.md
+FOJAX will be a web application that will be used either to create a rest API. It can be used for testing or just a regular rest API, where you will be able to configure the end points.
