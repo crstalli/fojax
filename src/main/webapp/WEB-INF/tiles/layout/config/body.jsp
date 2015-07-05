@@ -29,8 +29,13 @@
                             </ng-form>
                             <div class="col-xs-2 clearfix">
                                 <!-- todo: edit mode <a class="pull-left" ng-click="editAttribute()">edit</a> -->
-                                 <a ng-show="!$last" class="pull-left" ng-click="removeAttribute($index)">remove</a>
                                  <button ng-show="$last" class="btn btn-default glyphicon glyphicon-plus pull-left" ng-click="addAttribute()"></button>
+                                 <a ng-show="$index > 0 || !$last" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="removeAttribute($index)">remove</a>
+                            </div>
+                        </div>
+                        <div class="row margin-10-top">
+                            <div class="col-xs-offset-6 col-xs-2">
+                                <button class="btn btn-primary" type="submit" ng-click="submit()">Submit</button>
                             </div>
                         </div>
                     </form>

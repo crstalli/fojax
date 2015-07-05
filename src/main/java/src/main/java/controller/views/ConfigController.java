@@ -1,4 +1,4 @@
-package src.main.java.api.controller;
+package src.main.java.controller.views;
 
 import javax.servlet.http.HttpServletRequest;
 

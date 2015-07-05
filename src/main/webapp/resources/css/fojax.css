@@ -45,6 +45,11 @@ body {
     margin-top: 10px;
 }
 
+.margin-10-left {
+    margin-left: 10px;
+}
+
+
 .pad-20-vert{
   padding-top:20px;
   padding-bottom:20px;
@@ -53,3 +58,9 @@ body {
 .pad-50-bottom{
   padding-bottom:50px;
 }
+
+.remove-attribute-link {
+    line-height: 27px;
+}
+
+

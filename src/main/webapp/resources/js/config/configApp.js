@@ -75,7 +75,9 @@ var ResourceListCtrl = function($scope, $http) {
     };
 
     $scope.submit = function() {
-        console.log('submitting');
+        if ($scope.configForm.$valid) {
+            console.log('submitting');
+        }
     };
 
     $scope.typeAheadOptions = {
