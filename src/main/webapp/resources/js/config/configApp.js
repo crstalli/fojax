@@ -1,4 +1,88 @@
-var configApp = angular.module('configApp', [ 'AngularTypeahead' ]);
+var configApp = angular.module('configApp', [ 'AngularTypeahead',
+        'ui.router.state', 'ui.bootstrap', ]);
+
+configApp
+        .config(function($stateProvider, $urlRouterProvider) {
+            $stateProvider.state('home', {
+                url : '/home',
+                templateUrl : fojax.partialsPath + 'home.html',
+                ncyBreadcrumb : {
+                    label : '/'
+                }
+            })
+
+            .state('config', {
+                url : '/config{path:.*}',
+                templateUrl : fojax.partialsPath + 'config.html',
+                controller : 'ResourceListCtrl',
+                ncyBreadcrumb : {
+                    parent : function($scope) {
+                        if ($scope.path) {
+                            return 'config';
+                        } else {
+                            return 'config';
+                        }
+                    }
+
+                }
+            });
+
+        })
+        .run(function($rootScope, $state, $stateParams) {
+            $rootScope.$state = $state;
+            $rootScope.$stateParams = $stateParams;
+        })
+        .directive(
+                'routerCrumbs',
+                function() {
+                    return {
+                        restrict : 'AE',
+                        scope : {
+                            path : '=',
+                            clicked : '&'
+                        },
+                        link : function(scope, elm, attrs) {
+
+                            var loc = scope.path;
+
+                            if (loc.length > 1) {
+                                if (loc.lastIndexOf('/') == loc.length - 1) {
+                                    loc = loc.substring(0, loc.length - 1);
+                                }
+                            }
+
+                            var locs = loc.split('/');
+                            locs = locs.map(function(elem, i) {
+                                return {
+                                    element : elem,
+                                    index : i
+                                };
+                            });
+
+                            scope.locations = locs;
+                            scope.goToLocaiton = function(location) {
+                                var loc = scope.locations.slice(0,
+                                        scope.locations.indexOf(location) + 1);
+                                var s = ""
+                                for (var i = 0; i < loc.length; i++) {
+                                    if (!(i === loc.length - 1)) {
+                                        s += (loc[i].element + "/");
+                                    } else if (loc[i].element !== "") {
+                                        s += (loc[i].element + "/");
+                                    }
+                                }
+                                scope.clicked({
+                                    path : s
+                                });
+                            };
+                        },
+                        template : '<ol  class="breadcrumb">'
+                                + '<li ng-repeat="location in locations" ng-class="{active: $last}">'
+                                + '<a ng-if="!$last" ng-click="goToLocaiton(location)"><span ng-bind="location.element=== \'\' ? \'/\' :location.element"></span></a>'
+                                + '<span ng-if="$last" ng-bind="location.element=== \'\' ? \'/\' :location.element"></span>'
+                                + '</li>' + '</ol>'
+                    };
+                });
 
 configApp.directive('attributeType', function() {
     return {
@@ -22,15 +106,26 @@ configApp.directive('attributeType', function() {
     };
 });
 
-var ResourceListCtrl = function($scope, $http) {
+var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     // List of the attributes
     $scope.attributes = [];
+
+    $scope.path = $stateParams.path;
 
     // Attribute types
     $scope.attributeTypes = fojax.constants.config.attributeTypes;
 
     // Prefix for the id attribute of type inputs
     $scope.idTypePrefix = "type-input-";
+
+    $scope.onCrumbClick = function(path) {
+
+        $state.go('config', {
+            path : path
+        }, {
+            inherit : false
+        });
+    };
 
     // instantiate the bloodhound suggestion engine
     var typeaheadValues = new Bloodhound({
@@ -95,5 +190,5 @@ var ResourceListCtrl = function($scope, $http) {
     init();
 };
 
-configApp.controller('ResourceListCtrl',
-        [ '$scope', '$http', ResourceListCtrl ]);
+configApp.controller('ResourceListCtrl', [ '$scope', '$http', '$stateParams',
+        '$state', ResourceListCtrl ]);
