@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ConfigController {
 
-    @RequestMapping(value = "/config/**", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String api(HttpServletRequest request) {
         return "config";
     }
