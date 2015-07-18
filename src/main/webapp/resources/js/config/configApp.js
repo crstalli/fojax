@@ -1,33 +1,54 @@
-var configApp = angular.module('configApp', [ 'AngularTypeahead',
-        'ui.router.state', 'ui.bootstrap', ]);
+var configApp = angular.module('configApp', [ 'AngularTypeahead', 'ui.router',
+        'ui.bootstrap', ]);
 
 configApp
-        .config(function($stateProvider, $urlRouterProvider) {
-            $stateProvider.state('home', {
-                url : '/home',
-                templateUrl : fojax.partialsPath + 'home.html',
-                ncyBreadcrumb : {
-                    label : '/'
-                }
-            })
-
-            .state('config', {
-                url : '/config{path:.*}',
-                templateUrl : fojax.partialsPath + 'config.html',
-                controller : 'ResourceListCtrl',
-                ncyBreadcrumb : {
-                    parent : function($scope) {
-                        if ($scope.path) {
-                            return 'config';
-                        } else {
-                            return 'config';
-                        }
+        .config(
+                function($stateProvider, $urlRouterProvider,
+                        $urlMatcherFactoryProvider) {
+                    routeValToString = function(val) {
+                        return val != null ? val.toString() : val;
+                    };
+                    routeValFromString = function(val) {
+                        return val != null ? val.toString() : val;
+                    };
+                    routeValregexpMatches = function(val) { /*
+                                                             * jshint
+                                                             * validthis:true
+                                                             */
+                        return this.pattern.test(val);
                     }
+                    $urlMatcherFactoryProvider.type("Route", {
+                        encode : routeValToString,
+                        decode : routeValFromString,
+                        is : routeValregexpMatches,
+                        pattern : /.*/
+                    });
 
-                }
-            });
+                    $stateProvider.state('/', {
+                        url : '/',
+                        templateUrl : fojax.partialsPath + 'home.html',
+                        ncyBreadcrumb : {
+                            label : '/'
+                        }
+                    })
 
-        })
+                    .state('config', {
+                        url : '/{path:Route}',
+                        templateUrl : fojax.partialsPath + 'config.html',
+                        controller : 'ResourceListCtrl',
+                        ncyBreadcrumb : {
+                            parent : function($scope) {
+                                if ($scope.path) {
+                                    return 'config';
+                                } else {
+                                    return 'config';
+                                }
+                            }
+
+                        }
+                    });
+                    $urlRouterProvider.otherwise('/config');
+                })
         .directive(
                 'routerCrumbs',
                 function() {

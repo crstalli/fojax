@@ -11,7 +11,7 @@
 
   </head>
 
-  <body data-controller="index">
+  <body>
 	<tiles:insertAttribute name="menu"/>
 	<tiles:insertAttribute name="body"/>
    
