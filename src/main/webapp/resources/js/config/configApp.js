@@ -1,5 +1,5 @@
 var configApp = angular.module('configApp', [ 'AngularTypeahead', 'ui.router',
-        'ui.bootstrap', ]);
+        'ui.bootstrap', 'ui.grid' ]);
 
 configApp
         .config(
@@ -16,7 +16,7 @@ configApp
                                                              * validthis:true
                                                              */
                         return this.pattern.test(val);
-                    }
+                    };
                     $urlMatcherFactoryProvider.type("Route", {
                         encode : routeValToString,
                         decode : routeValFromString,
@@ -24,16 +24,14 @@ configApp
                         pattern : /.*/
                     });
 
-                    $stateProvider.state('/', {
-                        url : '/',
+                    $stateProvider.state('home', {
+                        url : '',
                         templateUrl : fojax.partialsPath + 'home.html',
-                        ncyBreadcrumb : {
-                            label : '/'
-                        }
+                        controller : 'EndpointListCtrl'
                     })
 
                     .state('config', {
-                        url : '/{path:Route}',
+                        url : '/config{path:Route}',
                         templateUrl : fojax.partialsPath + 'config.html',
                         controller : 'ResourceListCtrl',
                         ncyBreadcrumb : {
@@ -80,7 +78,7 @@ configApp
                             scope.goToLocaiton = function(location) {
                                 var loc = scope.locations.slice(0,
                                         scope.locations.indexOf(location) + 1);
-                                var s = ""
+                                var s = "";
                                 for (var i = 0; i < loc.length; i++) {
                                     if (!(i === loc.length - 1)) {
                                         s += (loc[i].element + "/");
@@ -203,9 +201,48 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
             name : '',
             type : ''
         });
-    }
+    };
+    init();
+};
+
+var EndpointListCtrl = function($scope, $http, $stateParams, $state) {
+    // List of the attributes
+    $scope.endpoints = [];
+
+    $scope.path = $stateParams.path;
+
+    var init = function() {
+
+    };
+
+    $scope.sortChanged = function(grid, sortColumns) {
+        $http.get(fojax.rootUri + 'fojax/endpoints').success(function(data) {
+            $scope.gridOptions.data = data;
+        });
+    };
+
+    $scope.gridOptions = {
+        useExternalSorting : true,
+        columnDefs : [ {
+            name : 'type'
+        }, {
+            name : 'uri'
+        }, {
+            name : 'identifier'
+        } ],
+        onRegisterApi : function(gridApi) {
+            $scope.gridApi = gridApi;
+            $scope.gridApi.core.on.sortChanged($scope, $scope.sortChanged);
+            $scope.sortChanged($scope.gridApi.grid,
+                    [ $scope.gridOptions.columnDefs[1] ]);
+        }
+    };
+
     init();
 };
 
 configApp.controller('ResourceListCtrl', [ '$scope', '$http', '$stateParams',
         '$state', ResourceListCtrl ]);
+
+configApp.controller('EndpointListCtrl', [ '$scope', '$http', '$stateParams',
+        '$state', EndpointListCtrl ]);
