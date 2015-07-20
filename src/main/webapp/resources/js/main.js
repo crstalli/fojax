@@ -1,4 +1,3 @@
-
 fojax.common = {
     init : function() {
         fojax.models = {};

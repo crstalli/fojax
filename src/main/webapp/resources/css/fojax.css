@@ -63,4 +63,7 @@ body {
     line-height: 27px;
 }
 
-
+router-crumbs {
+    margin-top: 20px;
+    display: block;
+}
