@@ -50,15 +50,7 @@ configApp
 
                             var loc = scope.path || "/";
 
-                            if (loc.length >= 1) {
-                                if (loc.lastIndexOf('/') == loc.length - 1) {
-                                    loc = loc.substring(0, loc.length - 1);
-                                }
-                            }
-                            var locs = [ '' ];
-                            if (loc.length > 1) {
-                                locs = locs.concat(loc.split('/'));
-                            }
+                            var locs = fojax.utils.common.getRouteArray(loc);
 
                             locs = locs.map(function(elem, i) {
                                 return {
@@ -90,39 +82,54 @@ configApp
                     };
                 });
 
-configApp.directive('attributeType', function() {
-    return {
-        require : 'ngModel',
-        link : function(scope, elm, attrs, ctrl) {
-            ctrl.$validators.attributeType = function(modelValue, viewValue) {
-                if (ctrl.$isEmpty(modelValue)) {
-                    return false;
-                }
-                var possibleValues = fojax.constants.config.attributeTypes;
-                for (var i = 0; i < possibleValues.length; i++) {
-                    if (possibleValues[i].toLowerCase() === modelValue
-                            .toLowerCase()) {
-                        return true;
-                    }
-                }
+configApp
+        .directive(
+                'attributeType',
+                function() {
+                    return {
+                        require : 'ngModel',
+                        link : function(scope, elm, attrs, ctrl) {
+                            ctrl.$validators.attributeType = function(
+                                    modelValue, viewValue) {
+                                if (ctrl.$isEmpty(modelValue)) {
+                                    return false;
+                                }
+                                var possibleValues = fojax.constants.config.allKnownAttributeTypes;
+                                for (var i = 0; i < possibleValues.length; i++) {
+                                    if (possibleValues[i].toLowerCase() === modelValue
+                                            .toLowerCase()) {
+                                        return true;
+                                    }
+                                }
 
-                return false;
-            };
-        }
-    };
-});
+                                return false;
+                            };
+                        }
+                    };
+                });
 
 var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     // List of the attributes
     $scope.attributes = [];
 
-    $scope.path = $stateParams.path;
+    $scope.path = $stateParams.path || '/';
 
     // Attribute types
-    $scope.attributeTypes = fojax.constants.config.attributeTypes;
+    $scope.attributeTypes = fojax.constants.config.allKnownAttributeTypes;
 
     // Prefix for the id attribute of type inputs
     $scope.idTypePrefix = "type-input-";
+
+    $scope.currentEntityType = "Object";
+
+    $scope.entitySavedAsObject = false;
+
+    $scope.entityTypeSelectionActive = true;
+
+    $scope.typeSelected = function() {
+        $scope.entitySavedAsObject = $scope.currentEntityType === 'Object';
+        $scope.entityTypeSelectionActive = false;
+    };
 
     $scope.onCrumbClick = function(path) {
 
@@ -192,6 +199,8 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
             name : '',
             type : ''
         });
+        var loc = fojax.utils.common.getRouteArray($scope.path);
+        $scope.location = loc[loc.length - 1];
     };
     init();
 };
