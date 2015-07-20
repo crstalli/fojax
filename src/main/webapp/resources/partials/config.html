@@ -4,17 +4,40 @@
             <h3>
                 Path
             </h3>
-            <router-crumbs path="path" clicked="onCrumbClick(path)"></router-crumbs>           
+            <router-crumbs path="path" clicked="onCrumbClick(path)"></router-crumbs>
         </div>
     </div>
     <div class="row">
+        <div class="col-xs-6">
+            <h3>Entity: {{location}}</h3>
+        </div>
+        <div class="col-xs-6 margin-25-top pull-right">
+                <form class="form-inline novalidate" name="currentEntityTypeForm" novalidate>
+                    <div class="row">
+                        <label class="pull-left" for="current-entity-type">EntityType</label>
+                        <div class="form-group col-xs-5" ng-class="{'has-error': currentEntityTypeForm.currentEntityType.$invalid && !currentEntityTypeForm.currentEntityType.$pristine}">
+                            <input class="form-control typeahead" name="currentEntityType" type="text" angular-typeahead options="typeaheadOptions" datasets="attributeDataSet" required ng-model="currentEntityType" attribute-type="attributeTypes" id="current-entity-type" ng-disabled="!entityTypeSelectionActive"/>
+                            <p ng-show="currentEntityTypeForm.currentEntityType.$invalid && !currentEntityTypeForm.currentEntityType.$pristine" class="help-block">Please enter a valid type</p>
+                        </div>
+                        <div class="pull-right" ng-show="entityTypeSelectionActive">
+                            <button class="btn btn-default" type="submit" ng-click="typeSelected()">Select</button>
+                        </div>
+                    </div>
+                 </form>
+        </div>
+    </div>                 
+  
+    
+    <div class="row" ng-show="entitySavedAsObject">
         <div class="col-xs-12">
             <form class="form-inline novalidate" name="configForm" novalidate>
-                <div class="col-xs-5">
-                    <label>Attribute</label>
-                </div>
-                <div class="col-xs-5">
-                    <label>Type</label>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <label>Attribute</label>
+                    </div>
+                    <div class="col-xs-5">
+                        <label>Type</label>
+                    </div>
                 </div> 
                 <div class="row margin-10-top" ng-repeat="attribute in attributes">
                     <ng-form class="col-xs-5" name="nameForm" novalidate>
@@ -36,11 +59,11 @@
                     </div>
                 </div>
                 <div class="row margin-10-top">
-                    <div class="col-xs-offset-6 col-xs-2">
-                        <button class="btn btn-primary" type="submit" ng-click="submit()">Submit</button>
+                    <div class="col-xs-offset-10 col-xs-2">
+                        <button class="btn btn-primary" type="submit" ng-click="submit()">Save</button>
                     </div>
                 </div>
             </form>
-       </div>
-  </div>
-
+        </div>
+    </div>
+</div>
