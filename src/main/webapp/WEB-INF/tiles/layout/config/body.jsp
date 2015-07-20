@@ -4,9 +4,10 @@
 <body>
     <div class="container">
         <div class="row">
-
-            <div ui-view>
-
+            <div class="col-xs-12">
+                <div ui-view>
+    
+                </div>
             </div>
         </div>
     </div>

@@ -25,27 +25,17 @@ configApp
                     });
 
                     $stateProvider.state('home', {
-                        url : '',
+                        url : '/',
                         templateUrl : fojax.partialsPath + 'home.html',
                         controller : 'EndpointListCtrl'
                     })
 
                     .state('config', {
-                        url : '/config{path:Route}',
+                        url : '/{path:Route}',
                         templateUrl : fojax.partialsPath + 'config.html',
-                        controller : 'ResourceListCtrl',
-                        ncyBreadcrumb : {
-                            parent : function($scope) {
-                                if ($scope.path) {
-                                    return 'config';
-                                } else {
-                                    return 'config';
-                                }
-                            }
-
-                        }
+                        controller : 'ResourceListCtrl'
                     });
-                    $urlRouterProvider.otherwise('/config');
+                    $urlRouterProvider.otherwise('/');
                 })
         .directive(
                 'routerCrumbs',
@@ -58,15 +48,18 @@ configApp
                         },
                         link : function(scope, elm, attrs) {
 
-                            var loc = scope.path;
+                            var loc = scope.path || "/";
 
-                            if (loc.length > 1) {
+                            if (loc.length >= 1) {
                                 if (loc.lastIndexOf('/') == loc.length - 1) {
                                     loc = loc.substring(0, loc.length - 1);
                                 }
                             }
+                            var locs = [ '' ];
+                            if (loc.length > 1) {
+                                locs = locs.concat(loc.split('/'));
+                            }
 
-                            var locs = loc.split('/');
                             locs = locs.map(function(elem, i) {
                                 return {
                                     element : elem,
@@ -80,9 +73,7 @@ configApp
                                         scope.locations.indexOf(location) + 1);
                                 var s = "";
                                 for (var i = 0; i < loc.length; i++) {
-                                    if (!(i === loc.length - 1)) {
-                                        s += (loc[i].element + "/");
-                                    } else if (loc[i].element !== "") {
+                                    if (loc[i].element !== "") {
                                         s += (loc[i].element + "/");
                                     }
                                 }

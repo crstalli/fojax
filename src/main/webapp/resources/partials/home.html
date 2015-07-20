@@ -1,2 +1,16 @@
-<h1>home</h1>
-<div id="endpoint-grid" ui-grid="gridOptions" class="grid"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>
+                Path
+            </h3>
+            <router-crumbs path="path" clicked="onCrumbClick(path)"></router-crumbs>           
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="endpoint-grid" ui-grid="gridOptions" class="grid"></div>
+        </div>
+    </div>
+</div>
+    
