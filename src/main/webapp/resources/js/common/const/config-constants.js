@@ -1,6 +1,6 @@
 fojax.constants.config = {
-    primitiveAttributeTypes : [ 'Integer', 'Long', 'Btye', 'Short', 'Float',
-            'Double', 'Character', 'String', 'Boolean' ],
+    primitiveAttributeTypes : [ 'Integer', 'Long', 'Short', 'Float', 'Double',
+            'Character', 'String', 'Boolean', 'Enumeration' ],
     complexAttributeTypes : [ 'Object', 'List' ]
 };
 

@@ -140,6 +140,14 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         });
     };
 
+    $scope.setId = function(index) {
+        for (var i = 0; i < $scope.attributes.length; i++) {
+            if (i !== index) {
+                $scope.attributes[i].isId = false;
+            }
+        }
+    };
+
     // instantiate the bloodhound suggestion engine
     var typeaheadValues = new Bloodhound({
         datumTokenizer : function(d) {
@@ -168,6 +176,11 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         $scope.attributes.splice(index, 1);
     };
 
+    $scope.canAttributeBeId = function(attribute) {
+        return fojax.constants.config.primitiveAttributeTypes
+                .indexOf(attribute.type) >= 0;
+    };
+
     $scope.addAttribute = function() {
         /**
          * Adds an object to the $scope.attributes array with the {name:
@@ -177,7 +190,10 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         if ($scope.configForm.$valid) {
             $scope.attributes.push({
                 name : '',
-                type : ''
+                type : '',
+                isUnique : false,
+                isId : false
+
             });
         }
     };
