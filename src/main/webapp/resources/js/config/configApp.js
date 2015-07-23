@@ -176,6 +176,11 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         $scope.attributes.splice(index, 1);
     };
 
+    $scope.removeAttribute = function() {
+        $scope.attributes = [];
+        $scope.entityTypeSelectionActive = false;
+    };
+
     $scope.canAttributeBeId = function(attribute) {
         return fojax.constants.config.primitiveAttributeTypes
                 .indexOf(attribute.type) >= 0;

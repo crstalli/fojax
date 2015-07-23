@@ -22,6 +22,9 @@
                         <div class="pull-right" ng-show="entityTypeSelectionActive">
                             <button class="btn btn-default" type="submit" ng-click="typeSelected()">Select</button>
                         </div>
+                        <div class="pull-right" ng-show="!entityTypeSelectionActive">
+                            <button class="btn btn-default" type="submit" ng-click="typeRemoved()">Select</button>
+                        </div>
                     </div>
                  </form>
         </div>
