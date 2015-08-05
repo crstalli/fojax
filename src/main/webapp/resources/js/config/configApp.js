@@ -129,6 +129,10 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     $scope.entityTypeSelectionActive = true;
     
     $scope.everythingSaved = false;
+    
+    $scope.showSaveChanges = false;
+    
+    $scope.activeRow = -1;
 
     $scope.typeSelected = function() {
         $scope.entitySavedAsObject = $scope.currentEntityType === 'Object';
@@ -137,12 +141,14 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         } else {
         	$scope.entityTypeSelectionActive = false;
         }
+        $scope.showSaveChanges = false;
     };
     
     $scope.lastTypeRemoved = function(){
     	 $scope.currentEntityType = '';
     	 $scope.entitySavedAsObject = false;
-    	 $scope.entityTypeSelectionActive=true;
+    	 $scope.entityTypeSelectionActive = true;
+    	 $scope.showSaveChanges = false;
     }
     
     $scope.removeListLevel = function(){
@@ -150,13 +156,16 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     };
 
     $scope.onCrumbClick = function(path) {
-
+    	$scope.showSaveChanges = false;
         $state.go('config', {
             path : path
         }, {
             inherit : false
         });
     };
+    
+    
+    
 
     $scope.setId = function(index) {
         for (var i = 0; i < $scope.attributes.length; i++) {
@@ -164,6 +173,7 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
                 $scope.attributes[i].isId = false;
             }
         }
+        $scope.everythingSaved = false;
     };
 
     // instantiate the bloodhound suggestion engine
@@ -192,11 +202,15 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
          *            index - The index to remove
          */
         $scope.attributes.splice(index, 1);
+        $scope.everythingSaved = false;
+        $scope.showSaveChanges = false;
     };
 
     $scope.removeAttribute = function() {
         $scope.attributes = [];
         $scope.entityTypeSelectionActive = false;
+        $scope.everythingSaved = false;
+        $scope.showSaveChanges = false;
     };
 
     $scope.canAttributeBeId = function(attribute) {
@@ -219,12 +233,25 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
 
             });
         }
+        $scope.everythingSaved = false;
     };
+    
+    $scope.setActive
+    
+    $scope.traverse = function() {
+    	if(!$scope.configForm.$dirty && $scope.everythingSaved) {
+    		
+    	} else {
+    		$scope.showSaveChanges = true;
+    	}
+    }
 
     $scope.submit = function() {
         if ($scope.configForm.$valid) {
             console.log('submitting');
+            $scope.configForm.$dirty = false
             $scope.everythingSaved = true;
+            $scope.showSaveChanges = false;
         }
     };
 

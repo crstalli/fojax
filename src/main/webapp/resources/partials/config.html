@@ -59,27 +59,28 @@
                 </div> 
                 <div class="row margin-10-top" ng-repeat="attribute in attributes">
                     <div class="col-xs-1">
-                        <input ng-disabled="!canAttributeBeId(attribute)" ng-click="setId($index)" type="checkbox" ng-model="attribute.isId">
+                        <input ng-disabled="ng-disabled="(!$last && activeRow != $index) || !canAttributeBeId(attribute)" ng-click="setId($index)" type="checkbox" ng-model="attribute.isId">
                     </div>
                     <div class="col-xs-1">
-                        <input type="checkbox" ng-model="attribute.isUnique">
+                        <input type="checkbox" ng-model="attribute.isUnique" ng-disabled="!$last && activeRow != $index">
                     </div>
                     <ng-form class="col-xs-4" name="nameForm" novalidate>
                         <div  class="form-group" ng-class="{'has-error': nameForm.name.$invalid && !nameForm.name.$pristine}">
-                            <input class="form-control" name="name" type="text" ng-pattern="/^[a-zA-Z_][a-zA-Z0-9_]*$/" required ng-model="attribute.name" ng-attr-id="{{'name-input' + $index}}" />
+                            <input class="form-control" name="name" type="text" ng-disabled="!$last && activeRow != $index" ng-pattern="/^[a-zA-Z_][a-zA-Z0-9_]*$/" required ng-model="attribute.name" ng-attr-id="{{'name-input' + $index}}" />
                             <p ng-show="nameForm.name.$invalid && !nameForm.name.$pristine" class="help-block">Please enter a valid attribute name: ^[a-zA-Z_][a-zA-Z0-9_]*$</p>
                         </div>
                     </ng-form>
                     <ng-form class="col-xs-4" name="typeForm" novalidate>
                         <div class="form-group" ng-class="{'has-error': typeForm.type.$invalid && !typeForm.type.$pristine}">
-                           <input class="form-control typeahead" name="type" type="text" angular-typeahead options="typeaheadOptions" datasets="attributeDataSet" required ng-model="attribute.type" attribute-type="attributeTypes" ng-disabled="attribute.isId" ng-attr-id="{{idTypePrefix + $index}}"/>
+                           <input class="form-control typeahead" ng-disabled="!$last && activeRow != $index" name="type" type="text" angular-typeahead options="typeaheadOptions" datasets="attributeDataSet" required ng-model="attribute.type" attribute-type="attributeTypes" ng-disabled="attribute.isId" ng-attr-id="{{idTypePrefix + $index}}"/>
                            <p ng-show="typeForm.type.$invalid && !typeForm.type.$pristine" class="help-block">Please enter a valid attribute type</p>
                         </div>
                     </ng-form>
                     <div class="col-xs-2 clearfix">
                          <button ng-show="$last" class="btn btn-default glyphicon glyphicon-plus pull-left" ng-click="addAttribute()"></button>
-                         <a ng-show="!$last" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="removeAttribute($index)">remove</a>
-                         <a ng-show="!$last && savedEverything" class="btn btn-success pull-left" ng-class="{'margin-10-left': $last}" ng-click="traverse($index)">Define</a>
+                         <a ng-show="$index>0 && !$last" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="removeAttribute($index)">remove</a>
+                         <a ng-show="$index>0 && !$last && $index != activeRow" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="setActive($index)">change</a>
+                         <a ng-show="$index == activeRow" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="setActive(-1)">save</a>
                     </div>
                 </div>
                 <div class="row margin-10-top">
