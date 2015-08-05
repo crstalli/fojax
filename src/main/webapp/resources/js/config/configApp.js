@@ -120,15 +120,33 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     // Prefix for the id attribute of type inputs
     $scope.idTypePrefix = "type-input-";
 
+    $scope.numberOfListLevels = [];
+    
     $scope.currentEntityType = "Object";
 
     $scope.entitySavedAsObject = false;
 
     $scope.entityTypeSelectionActive = true;
+    
+    $scope.everythingSaved = false;
 
     $scope.typeSelected = function() {
         $scope.entitySavedAsObject = $scope.currentEntityType === 'Object';
-        $scope.entityTypeSelectionActive = false;
+        if($scope.currentEntityType === 'List'){
+        	$scope.numberOfListLevels.push(1);
+        } else {
+        	$scope.entityTypeSelectionActive = false;
+        }
+    };
+    
+    $scope.lastTypeRemoved = function(){
+    	 $scope.currentEntityType = '';
+    	 $scope.entitySavedAsObject = false;
+    	 $scope.entityTypeSelectionActive=true;
+    }
+    
+    $scope.removeListLevel = function(){
+    	$scope.numberOfListLevels.pop();
     };
 
     $scope.onCrumbClick = function(path) {
@@ -206,6 +224,7 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     $scope.submit = function() {
         if ($scope.configForm.$valid) {
             console.log('submitting');
+            $scope.everythingSaved = true;
         }
     };
 
