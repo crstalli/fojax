@@ -134,9 +134,13 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     
     $scope.activeRow = -1;
 
+    $scope.setActiveRow = function(index) {
+    	$scope.activeRow = index;
+    };
+    
     $scope.typeSelected = function() {
         $scope.entitySavedAsObject = $scope.currentEntityType === 'Object';
-        if($scope.currentEntityType === 'List'){
+        if($scope.currentEntityType === 'List') {
         	$scope.numberOfListLevels.push(1);
         } else {
         	$scope.entityTypeSelectionActive = false;
@@ -149,7 +153,7 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     	 $scope.entitySavedAsObject = false;
     	 $scope.entityTypeSelectionActive = true;
     	 $scope.showSaveChanges = false;
-    }
+    };
     
     $scope.removeListLevel = function(){
     	$scope.numberOfListLevels.pop();
@@ -163,9 +167,6 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
             inherit : false
         });
     };
-    
-    
-    
 
     $scope.setId = function(index) {
         for (var i = 0; i < $scope.attributes.length; i++) {
@@ -184,8 +185,6 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         queryTokenizer : Bloodhound.tokenizers.whitespace,
         local : $scope.attributeTypes
     });
-    
-    
 
     // initialize the bloodhound suggestion engine
     typeaheadValues.initialize();
@@ -238,8 +237,6 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         $scope.everythingSaved = false;
     };
     
-    $scope.setActive
-    
     $scope.traverse = function() {
     	if(!$scope.configForm.$dirty && $scope.everythingSaved) {
     		
@@ -280,9 +277,7 @@ var EndpointListCtrl = function($scope, $http, $stateParams, $state) {
 
     $scope.path = $stateParams.path;
 
-    var init = function() {
-
-    };
+    var init = function() {};
 
     $scope.sortChanged = function(grid, sortColumns) {
         $http.get(fojax.rootUri + 'fojax/endpoints').success(function(data) {

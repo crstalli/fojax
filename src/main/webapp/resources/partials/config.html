@@ -59,7 +59,7 @@
                 </div> 
                 <div class="row margin-10-top" ng-repeat="attribute in attributes">
                     <div class="col-xs-1">
-                        <input ng-disabled="ng-disabled="(!$last && activeRow != $index) || !canAttributeBeId(attribute)" ng-click="setId($index)" type="checkbox" ng-model="attribute.isId">
+                        <input ng-disabled="(!$last && activeRow != $index) || !canAttributeBeId(attribute)" ng-click="setId($index)" type="checkbox" ng-model="attribute.isId">
                     </div>
                     <div class="col-xs-1">
                         <input type="checkbox" ng-model="attribute.isUnique" ng-disabled="!$last && activeRow != $index">
