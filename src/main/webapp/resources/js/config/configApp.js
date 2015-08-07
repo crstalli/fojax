@@ -184,6 +184,8 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         queryTokenizer : Bloodhound.tokenizers.whitespace,
         local : $scope.attributeTypes
     });
+    
+    
 
     // initialize the bloodhound suggestion engine
     typeaheadValues.initialize();
