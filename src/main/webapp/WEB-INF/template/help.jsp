@@ -4,11 +4,9 @@
 	<head>
 
 	<tiles:insertAttribute name="meta"/>
+	<tiles:insertAttribute name="help-header"/>
     <tiles:insertAttribute name="header-content"/>
-
-	<tiles:insertAttribute name="header"/>
-
-
+	<tiles:insertAttribute name="common-header"/>
   </head>
 
   <body>

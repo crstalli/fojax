@@ -3,50 +3,46 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-
-
-
-
     <definition name="index" template="/WEB-INF/template/index.jsp">
-        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="common-header" value="/WEB-INF/tiles/layout/header.jsp" />
         <put-attribute name="meta" value="/WEB-INF/tiles/layout/meta.jsp" />
         <put-attribute name="header-content" value="/WEB-INF/tiles/layout/header-content.jsp" />
         <put-attribute name="menu" value="/WEB-INF/tiles/layout/menu.jsp" />
-    <put-attribute name="body">
-        <definition template="/WEB-INF/tiles/layout/body.jsp">
-          <put-attribute name="footer-content" value="/WEB-INF/tiles/layout/footer-content.jsp"/>
-        </definition>
-    </put-attribute>
-    <put-attribute name="footer-script" value="/WEB-INF/tiles/layout/footer-script.jsp" />
-    <put-attribute name="myDefinitionName" value="index" cascade="true"></put-attribute>
+	    <put-attribute name="body">
+	        <definition template="/WEB-INF/tiles/layout/body.jsp">
+	          <put-attribute name="footer-content" value="/WEB-INF/tiles/layout/footer-content.jsp"/>
+	        </definition>
+	    </put-attribute>
+	    <put-attribute name="footer-script" value="/WEB-INF/tiles/layout/footer-script.jsp" />
+	    <put-attribute name="myDefinitionName" value="index" cascade="true"></put-attribute>
     </definition>
-
 
      <definition name="config" extends="index" template="/WEB-INF/template/app.jsp">
-     <put-attribute name="app" value="configApp" type="String" />
-     <put-attribute name="scripts" value="/WEB-INF/tiles/script/config/config_script.jsp" cascade="true" />
-     <put-attribute name="body">
-        <definition template="/WEB-INF/tiles/layout/config/body.jsp">
-          <put-attribute name="footer-content" value="/WEB-INF/tiles/layout/footer-content.jsp"/>
-        </definition>
-    </put-attribute>
-    <put-attribute name="final-footer-script" value="/WEB-INF/tiles/layout/final-footer-script.jsp"/>
-    <put-attribute name="myDefinitionName" cascade="true" value="config"></put-attribute>
+	     <put-attribute name="app" value="configApp" type="String" />
+	     <put-attribute name="scripts" value="/WEB-INF/tiles/script/config/config_script.jsp" cascade="true" />
+	     <put-attribute name="body">
+	        <definition template="/WEB-INF/tiles/layout/config/body.jsp">
+	          <put-attribute name="footer-content" value="/WEB-INF/tiles/layout/footer-content.jsp"/>
+	        </definition>
+	     </put-attribute>
+	     <put-attribute name="final-footer-script" value="/WEB-INF/tiles/layout/final-footer-script.jsp"/>
+	     <put-attribute name="myDefinitionName" cascade="true" value="config"></put-attribute>
     </definition>
 
 
-    <definition name="help" template="/WEB-INF/template/index.jsp">
-        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
+    <definition name="help" extends="index" template="/WEB-INF/template/help.jsp">
+        <put-attribute name="common-header" value="/WEB-INF/tiles/layout/header.jsp" />
+        <put-attribute name="help-header" value="/WEB-INF/tiles/layout/help/help-header.jsp"></put-attribute>
         <put-attribute name="meta" value="/WEB-INF/tiles/layout/meta.jsp" />
         <put-attribute name="header-content" value="/WEB-INF/tiles/layout/header-content.jsp" />
         <put-attribute name="menu" value="/WEB-INF/tiles/layout/menu.jsp" />
-    <put-attribute name="body">
-        <definition template="/WEB-INF/tiles/layout/help/body.jsp">
-          <put-attribute name="footer-content" value="/WEB-INF/tiles/layout/footer-content.jsp"/>
-        </definition>
-    </put-attribute>
-    <put-attribute name="footer-script" value="/WEB-INF/tiles/layout/footer-script.jsp" />
-    <put-attribute name="myDefinitionName" cascade="true" value="help"></put-attribute>
+	    <put-attribute name="body">
+	        <definition template="/WEB-INF/tiles/layout/help/body.jsp">
+	          <put-attribute name="footer-content" value="/WEB-INF/tiles/layout/footer-content.jsp"/>
+	        </definition>
+	    </put-attribute>
+	    <put-attribute name="footer-script" value="/WEB-INF/tiles/layout/footer-script.jsp" />
+	    <put-attribute name="myDefinitionName" cascade="true" value="help"></put-attribute>
     </definition>
 
 </tiles-definitions>

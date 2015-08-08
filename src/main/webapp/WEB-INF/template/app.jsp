@@ -1,15 +1,13 @@
 <%@ include file="/WEB-INF/tiles/taglibs.jsp"  %>
 <html ng-app=<tiles:getAsString name="app"></tiles:getAsString>>
 
-	<head>
+<head>
 
-	<tiles:insertAttribute name="meta"/>
-    <tiles:insertAttribute name="header-content"/>
-
-	<tiles:insertAttribute name="header"/>
-
-
-  </head>
+		<tiles:insertAttribute name="meta"/>
+	    <tiles:insertAttribute name="header-content"/>
+		<tiles:insertAttribute name="common-header"/>
+	
+</head>
 
   <body>
 	<tiles:insertAttribute name="menu"/>
