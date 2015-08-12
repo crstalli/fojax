@@ -134,6 +134,10 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     
     $scope.activeRow = -1;
 
+    $scope.setActiveRow = function(index) {
+    	$scope.activeRow = index;
+    };
+    
     $scope.typeSelected = function() {
         $scope.entitySavedAsObject = $scope.currentEntityType === 'Object';
         if($scope.entitySavedAsObject){
@@ -153,8 +157,8 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     	 $scope.entityTypeSelectionActive = true;
     	 $scope.showSaveChanges = false;
     	 $scope.attributes = [];
-    }
-    
+    };
+   
     $scope.removeListLevel = function(){
     	$scope.numberOfListLevels.pop();
     };
@@ -231,6 +235,7 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         $scope.activeRow = $scope.attributes.length-1;
     };
     
+
     $scope.setActive = function(index){
     	$scope.activeRow = index;
     };
@@ -242,14 +247,14 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     		$scope.addAttribute();
     	}
     };
-    
+
     $scope.traverse = function() {
     	if(!$scope.configForm.$dirty && $scope.everythingSaved) {
     		
     	} else {
     		$scope.showSaveChanges = true;
     	}
-    }
+    };
 
     $scope.submit = function() {
         if ($scope.configForm.$valid) {
@@ -279,9 +284,7 @@ var EndpointListCtrl = function($scope, $http, $stateParams, $state) {
 
     $scope.path = $stateParams.path;
 
-    var init = function() {
-
-    };
+    var init = function() {};
 
     $scope.sortChanged = function(grid, sortColumns) {
         $http.get(fojax.rootUri + 'fojax/endpoints').success(function(data) {
