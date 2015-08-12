@@ -64,11 +64,16 @@ body {
   padding-bottom:50px;
 }
 
-.remove-attribute-link {
+.attribute-link {
     line-height: 27px;
 }
 
 router-crumbs {
     margin-top: 20px;
     display: block;
+}
+
+.margin-10-horiz {
+	margin-left: 10px;
+	margin-right: 10px;
 }

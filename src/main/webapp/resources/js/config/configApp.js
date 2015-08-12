@@ -136,6 +136,9 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
 
     $scope.typeSelected = function() {
         $scope.entitySavedAsObject = $scope.currentEntityType === 'Object';
+        if($scope.entitySavedAsObject){
+        	$scope.addAttribute();
+        }
         if($scope.currentEntityType === 'List'){
         	$scope.numberOfListLevels.push(1);
         } else {
@@ -144,11 +147,12 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         $scope.showSaveChanges = false;
     };
     
-    $scope.lastTypeRemoved = function(){
+    $scope.typeRemoved = function(){
     	 $scope.currentEntityType = '';
     	 $scope.entitySavedAsObject = false;
     	 $scope.entityTypeSelectionActive = true;
     	 $scope.showSaveChanges = false;
+    	 $scope.attributes = [];
     }
     
     $scope.removeListLevel = function(){
@@ -163,9 +167,6 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
             inherit : false
         });
     };
-    
-    
-    
 
     $scope.setId = function(index) {
         for (var i = 0; i < $scope.attributes.length; i++) {
@@ -206,13 +207,6 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
         $scope.showSaveChanges = false;
     };
 
-    $scope.removeAttribute = function() {
-        $scope.attributes = [];
-        $scope.entityTypeSelectionActive = false;
-        $scope.everythingSaved = false;
-        $scope.showSaveChanges = false;
-    };
-
     $scope.canAttributeBeId = function(attribute) {
         return fojax.constants.config.primitiveAttributeTypes
                 .indexOf(attribute.type) >= 0;
@@ -234,9 +228,20 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
             });
         }
         $scope.everythingSaved = false;
+        $scope.activeRow = $scope.attributes.length-1;
     };
     
-    $scope.setActive
+    $scope.setActive = function(index){
+    	$scope.activeRow = index;
+    };
+    
+    $scope.saveAttribute = function(index){
+    	if(index){
+    		$scope.activeRow = $scope.attributes.length-1;
+    	} else {
+    		$scope.addAttribute();
+    	}
+    };
     
     $scope.traverse = function() {
     	if(!$scope.configForm.$dirty && $scope.everythingSaved) {
@@ -262,10 +267,6 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     };
 
     var init = function() {
-        $scope.attributes.push({
-            name : '',
-            type : ''
-        });
         var loc = fojax.utils.common.getRouteArray($scope.path);
         $scope.location = loc[loc.length - 1];
     };
