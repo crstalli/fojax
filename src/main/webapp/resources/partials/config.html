@@ -32,7 +32,7 @@
                             <button class="btn btn-default" type="submit" ng-click="typeSelected()">Select</button>
                         </div>
                         <div class="pull-right" ng-show="!entityTypeSelectionActive">
-                            <button class="btn btn-default" type="submit" ng-click="lastTypeRemoved()">Change</button>
+                            <button class="btn btn-default" type="submit" ng-click="typeRemoved()">Change</button>
                         </div>
                     </div>
                  </form>
@@ -59,10 +59,10 @@
                 </div> 
                 <div class="row margin-10-top" ng-repeat="attribute in attributes">
                     <div class="col-xs-1">
-                        <input ng-disabled="ng-disabled="(!$last && activeRow != $index) || !canAttributeBeId(attribute)" ng-click="setId($index)" type="checkbox" ng-model="attribute.isId">
+                        <input ng-disabled="(!$last || activeRow != $index) || !canAttributeBeId(attribute)" ng-click="setId($index)" type="checkbox" ng-model="attribute.isId">
                     </div>
                     <div class="col-xs-1">
-                        <input type="checkbox" ng-model="attribute.isUnique" ng-disabled="!$last && activeRow != $index">
+                        <input type="checkbox" ng-model="attribute.isUnique" ng-disabled="!$last || activeRow != $index">
                     </div>
                     <ng-form class="col-xs-4" name="nameForm" novalidate>
                         <div  class="form-group" ng-class="{'has-error': nameForm.name.$invalid && !nameForm.name.$pristine}">
@@ -72,15 +72,14 @@
                     </ng-form>
                     <ng-form class="col-xs-4" name="typeForm" novalidate>
                         <div class="form-group" ng-class="{'has-error': typeForm.type.$invalid && !typeForm.type.$pristine}">
-                           <input class="form-control typeahead" ng-disabled="!$last && activeRow != $index" name="type" type="text" angular-typeahead options="typeaheadOptions" datasets="attributeDataSet" required ng-model="attribute.type" attribute-type="attributeTypes" ng-disabled="attribute.isId" ng-attr-id="{{idTypePrefix + $index}}"/>
+                           <input class="form-control typeahead" ng-disabled="attribute.isId || (!$last || activeRow != $index)" name="type" type="text" angular-typeahead options="typeaheadOptions" datasets="attributeDataSet" required ng-model="attribute.type" attribute-type="attributeTypes" ng-attr-id="{{idTypePrefix + $index}}"/>
                            <p ng-show="typeForm.type.$invalid && !typeForm.type.$pristine" class="help-block">Please enter a valid attribute type</p>
                         </div>
                     </ng-form>
-                    <div class="col-xs-2 clearfix">
-                         <button ng-show="$last" class="btn btn-default glyphicon glyphicon-plus pull-left" ng-click="addAttribute()"></button>
-                         <a ng-show="$index>0 && !$last" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="removeAttribute($index)">remove</a>
-                         <a ng-show="$index>0 && !$last && $index != activeRow" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="setActive($index)">change</a>
-                         <a ng-show="$index == activeRow" class="pull-left remove-attribute-link" ng-class="{'margin-10-left': $last}" ng-click="setActive(-1)">save</a>
+                    <div class="col-xs-2 clearfix">                         
+                         <a ng-show="!$last && $index != activeRow" class="pull-left attribute-link margin-10-horiz" ng-click="setActive($index)">change</a>
+                         <a ng-show="$index == activeRow" class="pull-left attribute-link margin-10-horiz"ng-click="saveAttribute()">save</a>
+                         <a ng-show="$index>0 && !$last" class="pull-left attribute-link margin-10-horiz" ng-click="removeAttribute($index)">remove</a>
                     </div>
                 </div>
                 <div class="row margin-10-top">
