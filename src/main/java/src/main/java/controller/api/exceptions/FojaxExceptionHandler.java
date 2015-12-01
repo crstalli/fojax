@@ -25,7 +25,7 @@ public class FojaxExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleInvalidRequest(Exception e,
             WebRequest request) {
         InvalidRequestException ire = (InvalidRequestException) e;
-        List<FieldErrorResource> fieldErrorResources = new ArrayList<>();
+        List<FieldErrorResource> fieldErrorResources = new ArrayList<FieldErrorResource>();
 
         List<FieldError> fieldErrors = ire.getErrors().getFieldErrors();
         for (FieldError fieldError : fieldErrors) {

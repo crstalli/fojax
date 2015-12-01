@@ -133,6 +133,8 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
     $scope.showSaveChanges = false;
     
     $scope.activeRow = -1;
+    
+    $scope.isValid = true; 
 
     $scope.setActiveRow = function(index) {
     	$scope.activeRow = index;
@@ -258,7 +260,26 @@ var ResourceListCtrl = function($scope, $http, $stateParams, $state) {
 
     $scope.submit = function() {
         if ($scope.configForm.$valid) {
+        	if($scope.currentEntityType === 'Object'){
+        		var attribs= $scope.attributes,
+        			hasId = false;
+        		for(var i=0;i<attribs.length;i++){
+        			if(attribs[i].isId){
+        				hasId=true;
+        				break;
+        			}
+        		}
+        		if(!hasId){
+        			$scope.isValid = true;
+        		}
+        	}
             console.log('submitting');
+            console.log($scope.attributes);
+            console.log();
+            var payload = {
+            	path: $scope.path,
+            	attributes: $scope.attributes
+            };
             $scope.configForm.$dirty = false
             $scope.everythingSaved = true;
             $scope.showSaveChanges = false;

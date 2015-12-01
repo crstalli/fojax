@@ -31,7 +31,6 @@
 
 
     <definition name="help" extends="index" template="/WEB-INF/template/help.jsp">
-        <put-attribute name="common-header" value="/WEB-INF/tiles/layout/header.jsp" />
         <put-attribute name="help-header" value="/WEB-INF/tiles/layout/help/help-header.jsp"></put-attribute>
         <put-attribute name="meta" value="/WEB-INF/tiles/layout/meta.jsp" />
         <put-attribute name="header-content" value="/WEB-INF/tiles/layout/header-content.jsp" />
